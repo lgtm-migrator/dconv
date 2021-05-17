@@ -31,6 +31,63 @@
 using dconv::View;
 
 /**
+ * @brief Test data.
+ */
+TEST (View, data)
+{
+    View view ("hello world");
+    ASSERT_NE (view.data (), nullptr);
+    ASSERT_EQ (*view.data (), 'h');
+}
+
+/**
+ * @brief Test size.
+ */
+TEST (View, size)
+{
+    View view ("hello world");
+    ASSERT_EQ (view.size (), 11);
+}
+
+/**
+ * @brief Test peek.
+ */
+TEST (View, peek)
+{
+    View view ("hello world");
+    ASSERT_EQ (view.size (), 11);
+    ASSERT_EQ (view.peek (), 'h');
+    ASSERT_EQ (view.size (), 11);
+    ASSERT_EQ (view.peek (), 'h');
+}
+
+/**
+ * @brief Test get.
+ */
+TEST (View, get)
+{
+    View view ("hello world");
+    ASSERT_EQ (view.size (), 11);
+    ASSERT_EQ (view.get (), 'h');
+    ASSERT_EQ (view.size (), 10);
+    ASSERT_EQ (view.peek (), 'e');
+}
+
+/**
+ * @brief Test get.
+ */
+TEST (View, getIf)
+{
+    View view ("hello world");
+    ASSERT_EQ (view.size (), 11);
+    ASSERT_FALSE (view.getIf ('x'));
+    ASSERT_EQ (view.size (), 11);
+    ASSERT_TRUE (view.getIf ('h'));
+    ASSERT_EQ (view.size (), 10);
+    ASSERT_EQ (view.peek (), 'e');
+}
+
+/**
  * @brief main function.
  */
 int main (int argc, char **argv)

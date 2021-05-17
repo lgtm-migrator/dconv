@@ -40,33 +40,37 @@ namespace dconv
     class View
     {
     public:
-        /**
-         * @brief default constructor.
-         * @param document .
-         */
-        constexpr View (const char* document)
-        : _ptr (document),
-          _len (strlen (document))
-        {
-        }
+        using ValueType     = char;
+        using ConstPointer  = const ValueType*;
+        using SizeType      = size_t;
 
         /**
          * @brief default constructor.
-         * @param document .
-         * @param count .
+         * @param s pointer to a character array.
+         * @param count number of characters in the sequence.
          */
-        constexpr View (const char* document, size_t count)
-        : _ptr (document),
+        constexpr View (ConstPointer s, SizeType count)
+        : _ptr (s),
           _len (count)
         {
         }
 
         /**
          * @brief default constructor.
-         * @param first .
-         * @param last .
+         * @param s pointer to a character array.
          */
-        constexpr View (const char* first, const char* last)
+        constexpr View (ConstPointer s)
+        : _ptr (s),
+          _len (strlen (s))
+        {
+        }
+
+        /**
+         * @brief default constructor.
+         * @param first pointer to the first character of the sequence.
+         * @param last pointer to the last character of the sequence.
+         */
+        constexpr View (ConstPointer first, ConstPointer last)
         : _ptr (first),
           _len (last - first)
         {
@@ -76,27 +80,14 @@ namespace dconv
          * @brief copy constructor.
          * @param other object to copy.
          */
-        View (const View& other) = default;
+        constexpr View (const View& other) noexcept = default;
 
         /**
          * @brief copy assignment.
          * @param other object to copy.
          * @return a reference of the current object.
          */
-        View& operator= (const View& other) = default;
-
-        /**
-         * @brief move constructor.
-         * @param other object to move.
-         */
-        View (View&& other) = default;
-
-        /**
-         * @brief move assignment.
-         * @param other object to move.
-         * @return a reference of the current object.
-         */
-        View& operator= (View&& other) = default;
+        constexpr View& operator= (const View& other) noexcept = default;
 
         /**
          * @brief destroy instance.
@@ -107,7 +98,7 @@ namespace dconv
          * @brief returns a pointer to the first character of a view.
          * @return a pointer to the first character of a view.
          */
-        constexpr const char* data () const noexcept
+        constexpr ConstPointer data () const noexcept
         {
             return _ptr;
         }
@@ -116,7 +107,7 @@ namespace dconv
          * @brief returns the number of characters in the view.
          * @return the number of characters in the view.
          */
-        constexpr size_t size () const noexcept
+        constexpr SizeType size () const noexcept
         {
             return _len;
         }
@@ -166,10 +157,10 @@ namespace dconv
 
     protected:
         /// view start pointer.
-        const char* _ptr = nullptr;
+        ConstPointer _ptr;
 
         /// view size.
-        size_t _len = 0;
+        SizeType _len;
     };
 }
 
