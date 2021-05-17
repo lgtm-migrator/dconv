@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 3.1.0)
+
+set(PUBLIC_HEADER_DIRS
+    include
+)
+
+set(PUBLIC_HEADERS
+    include/dconv/view.hpp
+)
+
+add_library(${PROJECT_NAME} INTERFACE)
+target_include_directories(${PROJECT_NAME} INTERFACE ${PUBLIC_HEADER_DIRS})
+set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${PUBLIC_HEADERS}")
+install(TARGETS ${PROJECT_NAME} PUBLIC_HEADER DESTINATION include/dconv)
+
+if(DCONV_ENABLE_TESTS)
+    add_subdirectory(tests)
+endif()
