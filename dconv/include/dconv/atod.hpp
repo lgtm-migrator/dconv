@@ -200,7 +200,6 @@ namespace dconv
             while ((view.peek () >= '0') && (view.peek () <= '9'))
             {
                 mantissa = (mantissa * 10) + (view.get () - '0');
-                --exponent;
 
                 if (mantissa == 0)
                 {
