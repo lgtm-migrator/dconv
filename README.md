@@ -1,4 +1,4 @@
 # dconv
 
-[![Build Status](https://travis-ci.com/mrabine/dconv.svg?branch=main)](https://travis-ci.com/mrabine/dconv)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mrabine/dconv/blob/main/LICENSE)
+[![Build Status](https://github.com/mrabine/dconv/workflows/build-test/badge.svg)](https://github.com/mrabine/dconv/actions?query=workflow%3Abuild-test)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mrabine/dconv/blob/main/LICENSE)
