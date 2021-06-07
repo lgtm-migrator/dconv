@@ -1,0 +1,11 @@
+language: cpp
+dist: focal
+compiler: gcc
+os: linux
+sudo: false
+
+script:
+  - mkdir -p build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Release -DDCONV_ENABLE_TESTS=ON ..
+  - make
