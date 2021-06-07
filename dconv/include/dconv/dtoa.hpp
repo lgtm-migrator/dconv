@@ -430,6 +430,8 @@ namespace dconv
             buffer[i++] = '0' + K;
         }
 
+        buffer[i] = '\0';
+
         return &buffer[i];
     }
 
@@ -451,12 +453,14 @@ namespace dconv
             }
             buffer[kk] = '.';
             buffer[kk + 1] = '0';
+            buffer[kk + 2] = '\0';
             return &buffer[kk + 2];
         }
         else if ((0 < kk) && (kk <= 21))
         {
             memmove (&buffer[kk + 1], &buffer[kk], length - kk);
             buffer[kk] = '.';
+            buffer[length + 1] = '\0';
             return &buffer[length + 1];
         }
         else if ((-6 < kk) && (kk <= 0))
@@ -469,6 +473,7 @@ namespace dconv
             {
                 buffer[i] = '0';
             }
+            buffer[length + offset] = '\0';
             return &buffer[length + offset];
         }
         else if (length == 1)
@@ -606,13 +611,14 @@ namespace dconv
      * @param value value to convert.
      * @return end position on success, nullptr on failure.
      */
-    inline char* dtoa (char (&buffer) [25], double value)
+    inline char* dtoa (char* buffer, double value)
     {
         if (std::isnan (value))
         {
             buffer[0] = 'N';
             buffer[1] = 'a';
             buffer[2] = 'N';
+            buffer[3] = '\0';
             return &buffer[3];
         }
         else if (std::isinf (value))
@@ -623,6 +629,7 @@ namespace dconv
                 buffer[1] = 'I';
                 buffer[2] = 'n';
                 buffer[3] = 'f';
+                buffer[4] = '\0';
                 return &buffer[4];
             }
             else
@@ -630,6 +637,7 @@ namespace dconv
                 buffer[0] = 'I';
                 buffer[1] = 'n';
                 buffer[2] = 'f';
+                buffer[3] = '\0';
                 return &buffer[3];
             }
         }
@@ -641,6 +649,7 @@ namespace dconv
                 buffer[1] = '0';
                 buffer[2] = '.';
                 buffer[3] = '0';
+                buffer[4] = '\0';
                 return &buffer[4];
             }
             else
@@ -648,6 +657,7 @@ namespace dconv
                 buffer[0] = '0';
                 buffer[1] = '.';
                 buffer[2] = '0';
+                buffer[3] = '\0';
                 return &buffer[3];
             }
         }

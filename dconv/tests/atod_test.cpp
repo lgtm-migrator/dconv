@@ -29,22 +29,9 @@
 #include <gtest/gtest.h>
 
 /**
- * @brief fail test.
+ * @brief atod test.
  */
-TEST (atod, fail)
-{
-    double value;
-
-    ASSERT_EQ (dconv::atod ("01024679", value), nullptr);
-    ASSERT_EQ (dconv::atod ("not a number", value), nullptr);
-    ASSERT_EQ (dconv::atod ("Infinaty", value), nullptr);
-    ASSERT_EQ (dconv::atod ("1.1532ea123", value), nullptr);
-}
-
-/**
- * @brief pass test.
- */
-TEST (atod, pass)
+TEST (dconv, atod)
 {
     double value;
 

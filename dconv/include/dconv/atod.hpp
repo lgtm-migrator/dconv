@@ -138,7 +138,7 @@ namespace dconv
      */
     inline const char* atod (View& view, double& value)
     {
-        auto start = view.data ();
+        auto beg = view.data ();
         bool negative = false;
 
         if ((view.peek () == '+') || (view.peek () == '-'))
@@ -252,7 +252,7 @@ namespace dconv
         {
             char* end = nullptr;
             static locale_t locale = newlocale (LC_ALL_MASK, "C", nullptr);
-            value = strtod_l (start, &end, locale);
+            value = strtod_l (beg, &end, locale);
             return end;
         }
 
