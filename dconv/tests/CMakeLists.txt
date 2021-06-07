@@ -1,10 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
-
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/refs/heads/master.zip
-)
+cmake_minimum_required(VERSION 3.14)
 
 include(GoogleTest)
 

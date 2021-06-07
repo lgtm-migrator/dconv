@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
 project(dconv)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -16,6 +16,12 @@ message(STATUS "dconv version: ${DCONV_VERSION}")
 option(DCONV_ENABLE_TESTS "Enable tests." OFF)
 
 if(DCONV_ENABLE_TESTS)
+    include(FetchContent)
+    FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/heads/master.zip
+    )
+    FetchContent_MakeAvailable(googletest)
     enable_testing()
 endif()
 
