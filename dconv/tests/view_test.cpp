@@ -25,13 +25,13 @@
 // dconv.
 #include <dconv/view.hpp>
  
-// Libraries.
+// libraries.
 #include <gtest/gtest.h>
 
 using dconv::View;
 
 /**
- * @brief Test data.
+ * @brief data test.
  */
 TEST (View, data)
 {
@@ -41,7 +41,7 @@ TEST (View, data)
 }
 
 /**
- * @brief Test size.
+ * @brief size test.
  */
 TEST (View, size)
 {
@@ -50,7 +50,7 @@ TEST (View, size)
 }
 
 /**
- * @brief Test peek.
+ * @brief peek test.
  */
 TEST (View, peek)
 {
@@ -62,7 +62,7 @@ TEST (View, peek)
 }
 
 /**
- * @brief Test get.
+ * @brief get test.
  */
 TEST (View, get)
 {
@@ -74,7 +74,7 @@ TEST (View, get)
 }
 
 /**
- * @brief Test get.
+ * @brief getIf test.
  */
 TEST (View, getIf)
 {
@@ -85,6 +85,22 @@ TEST (View, getIf)
     ASSERT_TRUE (view.getIf ('h'));
     ASSERT_EQ (view.size (), 10);
     ASSERT_EQ (view.peek (), 'e');
+}
+
+/**
+ * @brief removePrefix test.
+ */
+TEST (View, removePrefix)
+{
+    View view ("hello world");
+    ASSERT_EQ (view.size (), 11);
+    ASSERT_EQ (view.peek (), 'h');
+    ASSERT_NO_THROW (view.removePrefix (6));
+    ASSERT_EQ (view.size (), 5);
+    ASSERT_EQ (view.peek (), 'w');
+    ASSERT_NO_THROW (view.removePrefix (5));
+    ASSERT_EQ (view.peek (), std::char_traits <char>::eof ());
+    ASSERT_THROW (view.removePrefix (8), std::out_of_range);
 }
 
 /**

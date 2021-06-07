@@ -26,7 +26,7 @@
 #define __DCONV_VIEW_HPP__
 
 // C++.
-#include <string>
+#include <stdexcept>
 
 // C.
 #include <cstring>
@@ -35,21 +35,17 @@
 namespace dconv
 {
     /**
-     * @brief view.
+     * @brief char array view.
      */
     class View
     {
     public:
-        using ValueType     = char;
-        using ConstPointer  = const ValueType*;
-        using SizeType      = size_t;
-
         /**
          * @brief default constructor.
          * @param s pointer to a character array.
          * @param count number of characters in the sequence.
          */
-        constexpr View (ConstPointer s, SizeType count)
+        constexpr View (const char * s, size_t count)
         : _ptr (s),
           _len (count)
         {
@@ -59,7 +55,7 @@ namespace dconv
          * @brief default constructor.
          * @param s pointer to a character array.
          */
-        constexpr View (ConstPointer s)
+        constexpr View (const char * s)
         : _ptr (s),
           _len (strlen (s))
         {
@@ -70,7 +66,7 @@ namespace dconv
          * @param first pointer to the first character of the sequence.
          * @param last pointer to the last character of the sequence.
          */
-        constexpr View (ConstPointer first, ConstPointer last)
+        constexpr View (const char * first, const char * last)
         : _ptr (first),
           _len (last - first)
         {
@@ -98,7 +94,7 @@ namespace dconv
          * @brief returns a pointer to the first character of a view.
          * @return a pointer to the first character of a view.
          */
-        constexpr ConstPointer data () const noexcept
+        constexpr const char * data () const noexcept
         {
             return _ptr;
         }
@@ -107,7 +103,7 @@ namespace dconv
          * @brief returns the number of characters in the view.
          * @return the number of characters in the view.
          */
-        constexpr SizeType size () const noexcept
+        constexpr size_t size () const noexcept
         {
             return _len;
         }
@@ -146,7 +142,7 @@ namespace dconv
          */
         constexpr bool getIf (char expected) noexcept
         {
-            if (*_ptr == expected)
+            if (_len && (*_ptr == expected))
             {
                 ++_ptr;
                 --_len;
@@ -155,12 +151,27 @@ namespace dconv
             return false;
         }
 
+        /**
+         * @brief moves the start of the view forward by n characters.
+         * @param n number of characters to remove from the start of the view
+         * @throw std::out_of_range.
+         */
+        constexpr void removePrefix (size_t n)
+        {
+            if (n > _len)
+            {
+                throw std::out_of_range ("parameter out of range");
+            }
+            _ptr += n;
+            _len -= n;
+        }
+
     protected:
         /// view start pointer.
-        ConstPointer _ptr;
+        const char * _ptr;
 
         /// view size.
-        SizeType _len;
+        size_t _len;
     };
 }
 
