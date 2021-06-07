@@ -1,11 +1,10 @@
 language: cpp
+os: linux
 dist: focal
 compiler: gcc
-os: linux
 
 script:
-  - mkdir -p build
-  - cd build
+  - mkdir -p build && cd build
   - cmake -DCMAKE_BUILD_TYPE=Release -DDCONV_ENABLE_TESTS=ON ..
-  - make -j $(nproc)
-
+  - cmake --build . -j $(nproc)
+  - ctest -vv

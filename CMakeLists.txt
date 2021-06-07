@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1.0)
+cmake_minimum_required(VERSION 3.10)
 project(dconv)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -14,5 +14,9 @@ string(REGEX REPLACE "[0-9]+\\.[0-9]+\\.([0-9]+).*" "\\1" DCONV_VERSION_PATCH ${
 message(STATUS "dconv version: ${DCONV_VERSION}")
 
 option(DCONV_ENABLE_TESTS "Enable tests." OFF)
+
+if(DCONV_ENABLE_TESTS)
+    enable_testing()
+endif()
 
 add_subdirectory(dconv)
