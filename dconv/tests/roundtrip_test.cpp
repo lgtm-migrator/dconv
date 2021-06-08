@@ -47,25 +47,25 @@ TEST (dconv, roundtrip)
     ASSERT_NE (end, nullptr);
     EXPECT_STREQ (dbl, "-0.0");
 
-    //ASSERT_NE (dconv::atod ("1.2345", value), nullptr);
-    //end = dconv::dtoa (dbl, value);
-    //ASSERT_NE (end, nullptr);
-    //EXPECT_STREQ (dbl, "1.2345");
+    ASSERT_NE (dconv::atod ("1.2345", value), nullptr);
+    end = dconv::dtoa (dbl, value);
+    ASSERT_NE (end, nullptr);
+    EXPECT_STREQ (dbl, "1.2345");
 
-    //ASSERT_NE (dconv::atod ("-1.2345", value), nullptr);
-    //end = dconv::dtoa (dbl, value);
-    //ASSERT_NE (end, nullptr);
-    //EXPECT_STREQ (dbl, "-1.2345");
+    ASSERT_NE (dconv::atod ("-1.2345", value), nullptr);
+    end = dconv::dtoa (dbl, value);
+    ASSERT_NE (end, nullptr);
+    EXPECT_STREQ (dbl, "-1.2345");
 
     ASSERT_NE (dconv::atod ("5e-324", value), nullptr);
     end = dconv::dtoa (dbl, value);
     ASSERT_NE (end, nullptr);
     EXPECT_STREQ (dbl, "5e-324");
 
-    //ASSERT_NE (dconv::atod ("2.225073858507201e-308", value), nullptr);
-    //end = dconv::dtoa (dbl, value);
-    //ASSERT_NE (end, nullptr);
-    //EXPECT_STREQ (dbl, "2.225073858507201e-308");
+    ASSERT_NE (dconv::atod ("2.225073858507201e-308", value), nullptr);
+    end = dconv::dtoa (dbl, value);
+    ASSERT_NE (end, nullptr);
+    EXPECT_STREQ (dbl, "2.225073858507201e-308");
 
     ASSERT_NE (dconv::atod ("2.2250738585072014e-308", value), nullptr);
     end = dconv::dtoa (dbl, value);

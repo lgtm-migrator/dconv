@@ -89,14 +89,14 @@ TEST (dconv, atod)
     ASSERT_NE (dconv::atod ("1.79769e+308", value), nullptr);
     EXPECT_DOUBLE_EQ (value, 1.79769e+308);
 
-    //ASSERT_NE (dconv::atod ("2.22507e-308", value), nullptr);
-    //EXPECT_DOUBLE_EQ (value, 2.22507e-308);
+    ASSERT_NE (dconv::atod ("2.22507e-308", value), nullptr);
+    EXPECT_DOUBLE_EQ (value, 2.22507e-308);
 
     ASSERT_NE (dconv::atod ("-1.79769e+308", value), nullptr);
     EXPECT_DOUBLE_EQ (value, -1.79769e+308);
 
-    //ASSERT_NE (dconv::atod ("-2.22507e-308", value), nullptr);
-    //EXPECT_DOUBLE_EQ (value, -2.22507e-308);
+    ASSERT_NE (dconv::atod ("-2.22507e-308", value), nullptr);
+    EXPECT_DOUBLE_EQ (value, -2.22507e-308);
 
     ASSERT_NE (dconv::atod ("-4.9406564584124654e-324", value), nullptr);
     EXPECT_DOUBLE_EQ (value, -4.9406564584124654e-324);
