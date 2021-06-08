@@ -4,7 +4,7 @@
 [![GitHub Releases](https://img.shields.io/github/release/mrabine/dconv.svg)](https://github.com/mrabine/dconv/releases/latest)
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mrabine/dconv/blob/main/LICENSE)
 
-dconv is a c++14 library for printing an parsing floating point numbers.
+**dconv** is a c++14 library for printing an parsing floating point numbers.
 
 Double to string conversion is done using the **Grisu2** algorithm, described by **Florian Loitsch** in its publication [Printing Floating-Point Numbers Quickly and Accurately with Integers](https://florian.loitsch.com/publications).
 
