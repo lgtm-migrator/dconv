@@ -88,22 +88,6 @@ TEST (View, getIf)
 }
 
 /**
- * @brief removePrefix test.
- */
-TEST (View, removePrefix)
-{
-    View view ("hello world");
-    ASSERT_EQ (view.size (), 11);
-    ASSERT_EQ (view.peek (), 'h');
-    ASSERT_NO_THROW (view.removePrefix (6));
-    ASSERT_EQ (view.size (), 5);
-    ASSERT_EQ (view.peek (), 'w');
-    ASSERT_NO_THROW (view.removePrefix (5));
-    ASSERT_EQ (view.peek (), std::char_traits <char>::eof ());
-    ASSERT_THROW (view.removePrefix (8), std::out_of_range);
-}
-
-/**
  * @brief main function.
  */
 int main (int argc, char **argv)

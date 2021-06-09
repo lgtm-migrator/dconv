@@ -151,21 +151,6 @@ namespace dconv
             return false;
         }
 
-        /**
-         * @brief moves the start of the view forward by n characters.
-         * @param n number of characters to remove from the start of the view
-         * @throw std::out_of_range.
-         */
-        constexpr void removePrefix (size_t n)
-        {
-            if (n > _len)
-            {
-                throw std::out_of_range ("parameter out of range");
-            }
-            _ptr += n;
-            _len -= n;
-        }
-
     protected:
         /// view start pointer.
         const char * _ptr;
