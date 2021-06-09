@@ -34,48 +34,48 @@
  */
 TEST (dconv, roundtrip)
 {
-    char dbl [25], *end = nullptr;
+    char beg [25], *end = nullptr;
     double value;
 
     ASSERT_NE (dconv::atod ("0.0", value), nullptr);
-    end = dconv::dtoa (dbl, value);
+    end = dconv::dtoa (beg, value);
     ASSERT_NE (end, nullptr);
-    EXPECT_STREQ (dbl, "0.0");
+    EXPECT_STREQ (std::string (beg, end - beg).c_str (), "0.0");
 
     ASSERT_NE (dconv::atod ("-0.0", value), nullptr);
-    end = dconv::dtoa (dbl, value);
+    end = dconv::dtoa (beg, value);
     ASSERT_NE (end, nullptr);
-    EXPECT_STREQ (dbl, "-0.0");
+    EXPECT_STREQ (std::string (beg, end - beg).c_str (), "-0.0");
 
     ASSERT_NE (dconv::atod ("1.2345", value), nullptr);
-    end = dconv::dtoa (dbl, value);
+    end = dconv::dtoa (beg, value);
     ASSERT_NE (end, nullptr);
-    EXPECT_STREQ (dbl, "1.2345");
+    EXPECT_STREQ (std::string (beg, end - beg).c_str (), "1.2345");
 
     ASSERT_NE (dconv::atod ("-1.2345", value), nullptr);
-    end = dconv::dtoa (dbl, value);
+    end = dconv::dtoa (beg, value);
     ASSERT_NE (end, nullptr);
-    EXPECT_STREQ (dbl, "-1.2345");
+    EXPECT_STREQ (std::string (beg, end - beg).c_str (), "-1.2345");
 
     ASSERT_NE (dconv::atod ("5e-324", value), nullptr);
-    end = dconv::dtoa (dbl, value);
+    end = dconv::dtoa (beg, value);
     ASSERT_NE (end, nullptr);
-    EXPECT_STREQ (dbl, "5e-324");
+    EXPECT_STREQ (std::string (beg, end - beg).c_str (), "5e-324");
 
     ASSERT_NE (dconv::atod ("2.225073858507201e-308", value), nullptr);
-    end = dconv::dtoa (dbl, value);
+    end = dconv::dtoa (beg, value);
     ASSERT_NE (end, nullptr);
-    EXPECT_STREQ (dbl, "2.225073858507201e-308");
+    EXPECT_STREQ (std::string (beg, end - beg).c_str (), "2.225073858507201e-308");
 
     ASSERT_NE (dconv::atod ("2.2250738585072014e-308", value), nullptr);
-    end = dconv::dtoa (dbl, value);
+    end = dconv::dtoa (beg, value);
     ASSERT_NE (end, nullptr);
-    EXPECT_STREQ (dbl, "2.2250738585072014e-308");
+    EXPECT_STREQ (std::string (beg, end - beg).c_str (), "2.2250738585072014e-308");
 
     ASSERT_NE (dconv::atod ("1.7976931348623157e308", value), nullptr);
-    end = dconv::dtoa (dbl, value);
+    end = dconv::dtoa (beg, value);
     ASSERT_NE (end, nullptr);
-    EXPECT_STREQ (dbl, "1.7976931348623157e308");
+    EXPECT_STREQ (std::string (beg, end - beg).c_str (), "1.7976931348623157e308");
 }
 
 /**
