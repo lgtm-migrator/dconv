@@ -28,12 +28,77 @@
 // libraries.
 #include <gtest/gtest.h>
 
+// C.
+#include <cmath>
+
+/**
+ * @brief pow10 test.
+ */
+TEST (dconv, pow10)
+{
+    EXPECT_DOUBLE_EQ (dconv::details::pow10 (0), 1e0);
+    EXPECT_DOUBLE_EQ (dconv::details::pow10 (22), 1e22);
+    EXPECT_DOUBLE_EQ (dconv::details::pow10 (124), 1e124);
+    EXPECT_DOUBLE_EQ (dconv::details::pow10 (218), 1e218);
+    EXPECT_DOUBLE_EQ (dconv::details::pow10 (308), 1e308);
+    ASSERT_THROW (dconv::details::pow10 (309), std::invalid_argument);
+    ASSERT_THROW (dconv::details::pow10 (412), std::invalid_argument);
+}
+
+/**
+ * @brief isSign test.
+ */
+TEST (dconv, isSign)
+{
+    EXPECT_TRUE  (dconv::details::isSign ('-'));
+    EXPECT_TRUE  (dconv::details::isSign ('+'));
+    EXPECT_FALSE (dconv::details::isSign ('0'));
+    EXPECT_FALSE (dconv::details::isSign ('9'));
+    EXPECT_FALSE (dconv::details::isSign ('a'));
+    EXPECT_FALSE (dconv::details::isSign ('z'));
+}
+
+/**
+ * @brief isDigit test.
+ */
+TEST (dconv, isDigit)
+{
+    EXPECT_FALSE (dconv::details::isDigit ('-'));
+    EXPECT_FALSE (dconv::details::isDigit ('+'));
+    EXPECT_TRUE  (dconv::details::isDigit ('0'));
+    EXPECT_TRUE  (dconv::details::isDigit ('9'));
+    EXPECT_FALSE (dconv::details::isDigit ('a'));
+    EXPECT_FALSE (dconv::details::isDigit ('z'));
+}
+
 /**
  * @brief atod test.
  */
 TEST (dconv, atod)
 {
     double value;
+
+    ASSERT_EQ (dconv::atod ("003", value), nullptr);
+
+    ASSERT_EQ (dconv::atod ("Infinaty", value), nullptr);
+
+    ASSERT_EQ (dconv::atod ("-Infinaty", value), nullptr);
+
+    ASSERT_EQ (dconv::atod ("not valid", value), nullptr);
+
+    ASSERT_EQ (dconv::atod ("1ee+10", value), nullptr);
+
+    ASSERT_NE (dconv::atod ("Inf", value), nullptr);
+    EXPECT_TRUE (!std::signbit (value) && std::isinf (value));
+
+    ASSERT_NE (dconv::atod ("-Inf", value), nullptr);
+    EXPECT_TRUE (std::signbit (value) && std::isinf (value));
+
+    ASSERT_NE (dconv::atod ("NaN", value), nullptr);
+    EXPECT_TRUE (!std::signbit (value) && std::isnan (value));
+
+    ASSERT_NE (dconv::atod ("-NaN", value), nullptr);
+    EXPECT_TRUE (std::signbit (value) && std::isnan (value));
 
     ASSERT_NE (dconv::atod ("0.0", value), nullptr);
     EXPECT_DOUBLE_EQ (value, 0.0);

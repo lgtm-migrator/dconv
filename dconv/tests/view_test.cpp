@@ -70,7 +70,27 @@ TEST (View, get)
     ASSERT_EQ (view.size (), 11);
     ASSERT_EQ (view.get (), 'h');
     ASSERT_EQ (view.size (), 10);
-    ASSERT_EQ (view.peek (), 'e');
+    ASSERT_EQ (view.get (), 'e');
+    ASSERT_EQ (view.size (), 9);
+    ASSERT_EQ (view.get (), 'l');
+    ASSERT_EQ (view.size (), 8);
+    ASSERT_EQ (view.get (), 'l');
+    ASSERT_EQ (view.size (), 7);
+    ASSERT_EQ (view.get (), 'o');
+    ASSERT_EQ (view.size (), 6);
+    ASSERT_EQ (view.get (), ' ');
+    ASSERT_EQ (view.size (), 5);
+    ASSERT_EQ (view.get (), 'w');
+    ASSERT_EQ (view.size (), 4);
+    ASSERT_EQ (view.get (), 'o');
+    ASSERT_EQ (view.size (), 3);
+    ASSERT_EQ (view.get (), 'r');
+    ASSERT_EQ (view.size (), 2);
+    ASSERT_EQ (view.get (), 'l');
+    ASSERT_EQ (view.size (), 1);
+    ASSERT_EQ (view.get (), 'd');
+    ASSERT_EQ (view.size (), 0);
+    ASSERT_EQ (view.get (), std::char_traits <char>::eof ());
 }
 
 /**
