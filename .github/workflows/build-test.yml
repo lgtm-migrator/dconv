@@ -30,6 +30,9 @@ jobs:
     - name: Generate coverage report
       run: lcov --directory . --capture --output-file lcov.info
 
+    - name: Cleanup coverage report
+      run: lcov --remove lcov.info '/usr/include/*' -o lcov.info
+
     - name: Deploy coverage
       uses: coverallsapp/github-action@v1.1.2
       with:
