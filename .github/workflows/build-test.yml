@@ -7,14 +7,15 @@ on:
     branches: [ main ]
 
 env:
-  BUILD_TYPE: Release
+  BUILD_TYPE: Debug
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Fetch
+      uses: actions/checkout@v2
 
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DDCONV_ENABLE_TESTS=ON
@@ -22,11 +23,14 @@ jobs:
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
+    - name: Install lcov
+      run: sudo apt install lcov -y
+
     - name: Test
       working-directory: ${{github.workspace}}/build
-      run: ctest -C ${{env.BUILD_TYPE}}
+      run: ctest -VV -C ${{env.BUILD_TYPE}}
 
     - name: Coveralls
       uses: coverallsapp/github-action@v1.1.2
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{secrets.GITHUB_TOKEN}}
