@@ -33,16 +33,16 @@
  */
 TEST (dconv, digitsCount)
 {
-    ASSERT_EQ (dconv::details::digitsCount (1), 1);
-    ASSERT_EQ (dconv::details::digitsCount (11), 2);
-    ASSERT_EQ (dconv::details::digitsCount (111), 3);
-    ASSERT_EQ (dconv::details::digitsCount (1111), 4);
-    ASSERT_EQ (dconv::details::digitsCount (11111), 5);
-    ASSERT_EQ (dconv::details::digitsCount (111111), 6);
-    ASSERT_EQ (dconv::details::digitsCount (1111111), 7);
-    ASSERT_EQ (dconv::details::digitsCount (11111111), 8);
-    ASSERT_EQ (dconv::details::digitsCount (111111111), 9);
-    ASSERT_EQ (dconv::details::digitsCount (1111111111), 10);
+    EXPECT_EQ (dconv::details::digitsCount (1), 1);
+    EXPECT_EQ (dconv::details::digitsCount (11), 2);
+    EXPECT_EQ (dconv::details::digitsCount (111), 3);
+    EXPECT_EQ (dconv::details::digitsCount (1111), 4);
+    EXPECT_EQ (dconv::details::digitsCount (11111), 5);
+    EXPECT_EQ (dconv::details::digitsCount (111111), 6);
+    EXPECT_EQ (dconv::details::digitsCount (1111111), 7);
+    EXPECT_EQ (dconv::details::digitsCount (11111111), 8);
+    EXPECT_EQ (dconv::details::digitsCount (111111111), 9);
+    EXPECT_EQ (dconv::details::digitsCount (1111111111), 10);
 }
 
 /**
@@ -50,7 +50,7 @@ TEST (dconv, digitsCount)
  */
 TEST (dconv, dtoa)
 {
-    char beg [25];
+    char beg [25] = {};
 
     char* end = dconv::dtoa (beg, 0.0);
     ASSERT_NE (end, nullptr);

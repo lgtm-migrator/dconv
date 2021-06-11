@@ -31,6 +31,40 @@
 using dconv::View;
 
 /**
+ * @brief create test.
+ */
+TEST (View, create)
+{
+    char msg[] = "hello world";
+
+    View view1 (msg);
+    ASSERT_NE (view1.data (), nullptr);
+    ASSERT_EQ (view1.size (), 11);
+
+    View view2 (msg, strlen (msg));
+    ASSERT_NE (view2.data (), nullptr);
+    ASSERT_EQ (view2.size (), 11);
+
+    View view3 (msg, msg + strlen (msg));
+    ASSERT_NE (view3.data (), nullptr);
+    ASSERT_EQ (view3.size (), 11);
+}
+
+/**
+ * @brief assign test.
+ */
+TEST (View, assign)
+{
+    View view = View ("other");
+    ASSERT_NE (view.data (), nullptr);
+    ASSERT_EQ (view.size (), 5);
+
+    view = View ("hello world");
+    ASSERT_NE (view.data (), nullptr);
+    ASSERT_EQ (view.size (), 11);
+}
+
+/**
  * @brief data test.
  */
 TEST (View, data)
