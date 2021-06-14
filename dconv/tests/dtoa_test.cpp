@@ -31,7 +31,7 @@
 /**
  * @brief digitsCount test.
  */
-TEST (dconv, digitsCount)
+TEST (dtoa, digitsCount)
 {
     EXPECT_EQ (dconv::details::digitsCount (1), 1);
     EXPECT_EQ (dconv::details::digitsCount (11), 2);
@@ -48,7 +48,7 @@ TEST (dconv, digitsCount)
 /**
  * @brief dtoa test.
  */
-TEST (dconv, dtoa)
+TEST (dtoa, dtoa)
 {
     char beg [25] = {};
 

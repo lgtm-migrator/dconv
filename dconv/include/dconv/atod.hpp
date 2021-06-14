@@ -34,6 +34,9 @@
 // C.
 #include <cstdlib>
 
+#define likely(x)   __builtin_expect((x), 1)
+#define unlikely(x) __builtin_expect((x), 0)
+
 namespace dconv
 {
     namespace details
@@ -117,27 +120,27 @@ namespace dconv
         auto digitsStart = view.data ();
         uint64_t mantissa = 0;
 
-        if (view.getIf ('0'))
+        if (unlikely (view.getIf ('0')))
         {
-            if (details::isDigit (view.peek ()))
+            if (unlikely (details::isDigit (view.peek ())))
             {
                 return nullptr;
             }
 
             digitsStart++;
         }
-        else if (details::isDigit (view.peek ()))
+        else if (likely (details::isDigit (view.peek ())))
         {
             mantissa = (view.get () - '0');
 
-            while (details::isDigit (view.peek ()))
+            while (likely (details::isDigit (view.peek ())))
             {
                 mantissa = (mantissa * 10) + (view.get () - '0');
             }
         }
-        else if (view.getIf ('I') && view.getIf ('n') && view.getIf ('f'))
+        else if (likely (view.getIf ('I') && view.getIf ('n') && view.getIf ('f')))
         {
-            if (view.getIf ('i') && !((view.get () == 'n') && (view.get () == 'i') && (view.get () == 't') && (view.get () == 'y')))
+            if (unlikely (view.getIf ('i') && !((view.get () == 'n') && (view.get () == 'i') && (view.get () == 't') && (view.get () == 'y'))))
             {
                 return nullptr;
             }
@@ -146,7 +149,7 @@ namespace dconv
 
             return view.data ();
         }
-        else if (view.getIf ('N') && (view.get () == 'a') && (view.get () == 'N'))
+        else if (likely (view.getIf ('N') && (view.get () == 'a') && (view.get () == 'N')))
         {
             value = negative ? -std::numeric_limits <double>::quiet_NaN () : std::numeric_limits <double>::quiet_NaN ();
 
@@ -157,19 +160,19 @@ namespace dconv
             return nullptr;
         }
 
-        int digitsOffset = 0;
         int64_t exponent = 0;
+        int digitsOffset = 0;
 
         if (view.getIf ('.'))
         {
             auto exponentStart = view.data ();
-            digitsOffset++;
+            digitsOffset = 1;
 
-            while (details::isDigit (view.peek ()))
+            while (likely (details::isDigit (view.peek ())))
             {
                 mantissa = (mantissa * 10) + (view.get () - '0');
 
-                if (mantissa == 0)
+                if (unlikely (mantissa == 0))
                 {
                     digitsStart++;
                 }
@@ -191,15 +194,15 @@ namespace dconv
 
             int exp = 0;
 
-            if (details::isDigit (view.peek ()))
+            if (likely (details::isDigit (view.peek ())))
             {
                 exp = (view.get () - '0');
 
-                while (details::isDigit (view.peek ()))
+                while (likely (details::isDigit (view.peek ())))
                 {
                     int digit = view.peek () - '0';
 
-                    if (exp <= ((std::numeric_limits <int>::max () - digit) / 10))
+                    if (likely (exp <= ((std::numeric_limits <int>::max () - digit) / 10)))
                     {
                         exp = (exp * 10) + digit;
                     }
@@ -215,8 +218,7 @@ namespace dconv
             exponent += negativeExp ? -exp : exp;
         }
 
-        if ((digits > std::numeric_limits <double>::max_digits10) ||
-            (exponent < -308) || (exponent > 308))
+        if (unlikely ((digits > std::numeric_limits <double>::max_digits10) || (exponent < -308) || (exponent > 308)))
         {
             char* end = nullptr;
             static locale_t locale = newlocale (LC_ALL_MASK, "C", nullptr);
