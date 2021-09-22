@@ -79,7 +79,7 @@ namespace dconv
             {
                 double d;
                 uint64_t u;
-            } tmp = { value };
+            } tmp = { .d = value };
 
             _mantissa = (tmp.u & _mantissaMask);
             _exponent = (tmp.u & _exponentMask) >> _mantissaSize;
