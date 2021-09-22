@@ -40,3 +40,10 @@ jobs:
       uses: codecov/codecov-action@v2
       with:
         file: /__w/dconv/dconv/lcov.info
+
+    - name: Deploy coverage report to codacy
+      uses: codacy/codacy-coverage-reporter-action@v1
+      with:
+        project-token: ${{secrets.CODACY_PROJECT_TOKEN}}
+        coverage-reports: /__w/join/join/lcov.info
+
