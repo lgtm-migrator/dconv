@@ -184,8 +184,8 @@ TEST (atod, atod)
     ASSERT_NE (dconv::atod ("-9223372036854775809", value), nullptr);
     EXPECT_EQ (value, -9223372036854775809.0);
 
-    //ASSERT_NE (dconv::atod ("0.9868011474609375", value), nullptr);
-    //EXPECT_EQ (value, 0.9868011474609375);
+    ASSERT_NE (dconv::atod ("0.9868011474609375", value), nullptr);
+    EXPECT_EQ (value, 0.9868011474609375);
 
     ASSERT_NE (dconv::atod ("123e34", value), nullptr);
     EXPECT_EQ (value, 123e34);
